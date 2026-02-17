@@ -1,10 +1,3 @@
-// perms: IF-XP
-// produces: 17 ci jungle logs, 8ci saplings
-// requires: half durability axe, stick, 5 stacks of jungle saplings
-// time: 50m
-// downtime: 12h
-// location: -8931, 107, 2381  | /dest karydia barbietown
-
 module.exports = function () {
     const bot = require("../bot")
     const do_tree = bot.action.complex.do_tree({

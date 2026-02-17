@@ -4,10 +4,9 @@ module.exports = function () {
     const tool = bot.item.of("diamond_axe")
     const berry = bot.item.of("sweet_berries")
 
-    for (let i = 0; i < 13; i++) {
+    for (let i = 0; i < 21; i++) {
         do_bar()
     }
-
 
     function do_row(dir, dist) {
         bot.action.center()

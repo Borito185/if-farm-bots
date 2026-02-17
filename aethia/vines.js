@@ -1,11 +1,3 @@
-// perms: PUBLIC
-// produces: ~45 ci Vines
-// requires: 32 iron
-// time: 35m
-// downtime: 12h
-// location: -2908, 74, 8042  | /dest imperial aethia
-// notes: compactor in the nether on IF-XP
-
 module.exports = function () {
     const bot = require("../bot")
 

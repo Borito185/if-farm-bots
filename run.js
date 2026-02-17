@@ -2,6 +2,7 @@ const bot = require("./bot")
 const farms = []
 
 add_farm(-4783, 161, 7789, null, require("./glenda/spruce"))
+add_farm(-4921, 123, 7824, null, require("./glenda/sweetberry"))
 add_farm(-8619, 68, 1349, null, require("./snapper/jungle"))
 add_farm(-9527, 68, 2419, "Karydia Wheat", require("./karydia/wheat"))
 add_farm(-8931, 107, 2381, "Karydia Jungle", require("./karydia/jungle"))
