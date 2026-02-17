@@ -10,8 +10,7 @@
 ## Using the bot
 Move to a predetermined spot in game and activate the script. 
 It will then start doing the farm automatically.
-You can pause the script by reactivating it.
-To unpause, reactivate it a last time.
+(un)pause the bot by reactivating the script.
 
 ## Making new bots
 Best is to rely on `bot.js`. You use it by starting with:
