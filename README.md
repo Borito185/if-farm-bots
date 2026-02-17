@@ -4,8 +4,9 @@
 1. Install the [JS Macros SE](https://modrinth.com/mod/jsmacrosce) mod.
 2. Navigate to `{minecraft}/config/jsMacros/Macros/`.
 3. Download the zip and unpack it here.
-4. in game press 'k' to open up the JS Macros menu and bind `run.js` to a key
-5. Walk to one of the designated blocks for the farm and press the keybind to start the bot!
+4. Make sure to edit user.js to personalize it with your own namelayer & discord handle
+5. In-game press 'k' to open up the JS Macros menu and bind `run.js` to a key
+6. Walk to one of the designated blocks for the farm and press the keybind to start the bot!
 
 ## Using the bot
 Move to a predetermined spot in game and activate the script. 
