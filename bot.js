@@ -1,5 +1,4 @@
 const { Event } = require("./lib/util")
-const user = require("./user")
 bot_state = {
     on_repeat: new Event(),
     farm_name: null,
