@@ -79,9 +79,6 @@ module.exports = {
 
     toggle_paused(new_value = !(GlobalVars.getBoolean("bot_is_paused") ?? false)) {
         GlobalVars.putBoolean("bot_is_paused", new_value)
-        if (new_value) {
-            logger.info("Restarting...")
-        }
     },
 
     look,

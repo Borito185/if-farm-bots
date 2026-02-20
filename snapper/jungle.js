@@ -32,7 +32,7 @@ module.exports = function () {
     bot.look.forward()
     bot.action.move_mine(bot.dir.EAST, (rows-1)*offset, true, 0)
     bot.action.elevator(-1)
-    bot.action.move_mine(bot.dir.SOUTH, 5, true, 0)
+    bot.action.move_mine(bot.dir.SOUTH, 6, true, 0)
 
     function do_layer() {
         do_row(bot.dir.NORTH, cols-1)

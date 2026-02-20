@@ -22,5 +22,6 @@ function is_already_running() {
 if (is_already_running()) {
     bot.toggle_paused()
 } else {
+    bot.toggle_paused(false)
     bot.run_farm()
 }
