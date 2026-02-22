@@ -18,7 +18,7 @@ module.exports = function () {
         do_row(bot.dir.NORTH)
     }
 
-    bot.action.move(bot.dir.EAST, 4)
+    bot.action.move_mine(bot.dir.EAST, 4, true, 0)
 
     function do_row(start_dir) {
         do_tree(start_dir, offset)

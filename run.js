@@ -7,9 +7,10 @@ user = {
     option2_key: "key.keyboard.n"
 }
 
+const debug = true
+
 const File = Java.type("java.io.File");
 const Files = Java.type("java.nio.file.Files");
-const Paths = Java.type("java.nio.file.Paths");
 const StandardCopyOption = Java.type("java.nio.file.StandardCopyOption");
 const URL = Java.type("java.net.URL");
 const ZipInputStream = Java.type("java.util.zip.ZipInputStream");
@@ -17,14 +18,23 @@ const BufferedInputStream = Java.type("java.io.BufferedInputStream");
 const BufferedOutputStream = Java.type("java.io.BufferedOutputStream");
 const FileOutputStream = Java.type("java.io.FileOutputStream");
 
-/**
- * Downloads latest GitHub release, extracts it to temp folder,
- * and returns absolute path to extracted directory.
- *
- * @param {string} owner
- * @param {string} repo
- * @param {string|null} assetName  (optional, null = first asset)
- */
+function deleteDir(file) {
+    if (file.isDirectory()) {
+        const files = file.listFiles()
+        if (files) for (let f of files) deleteDir(f)
+    }
+    file.delete()
+}
+
+function readFileIfExists(path) {
+    const f = path.toFile()
+    if (!f.exists()) return null
+    return new java.lang.String(
+        Files.readAllBytes(path),
+        java.nio.charset.StandardCharsets.UTF_8
+    )
+}
+
 function downloadLatestSource(owner, repo) {
     const api = `https://api.github.com/repos/${owner}/${repo}/releases/latest`
     const connection = new URL(api).openConnection()
@@ -38,28 +48,55 @@ function downloadLatestSource(owner, repo) {
     if (!release.zipball_url)
         throw "No release zipball found"
 
-    const tempDir = Files.createTempDirectory("jsmacros_" + repo);
+    const mcDir = Paths.get("").toAbsolutePath()
+    const tempDir = mcDir
+        .resolve("config")
+        .resolve("jsMacros")
+        .resolve("cache")
+        .resolve(repo)
+
+    Files.createDirectories(tempDir)
+
+    const versionPath = tempDir.resolve("version.txt")
+    const storedVersion = readFileIfExists(versionPath)
+    const latestVersion = release.tag_name
+
+    // 🔹 If same version → skip download
+    if (storedVersion && storedVersion.trim() === latestVersion) {
+        return tempDir.toString()
+    }
+
+    // 🔹 Clean old cache
+    const dirFile = tempDir.toFile()
+    if (dirFile.exists()) deleteDir(dirFile)
     Files.createDirectories(tempDir)
 
     const zipPath = tempDir.resolve("source.zip")
 
-    // download default source zip
     const inStream = new URL(release.zipball_url).openStream()
     Files.copy(inStream, zipPath, StandardCopyOption.REPLACE_EXISTING)
     inStream.close()
 
-    // extract
-    const zis = new ZipInputStream(new BufferedInputStream(Files.newInputStream(zipPath)))
-    let entry
-    let rootFolder = null
+    const zis = new ZipInputStream(
+        new BufferedInputStream(Files.newInputStream(zipPath))
+    );
+
+    let entry;
+    let rootFolder = null;
 
     while ((entry = zis.getNextEntry()) !== null) {
         const name = entry.getName();
 
+        // detect root folder once
         if (!rootFolder)
             rootFolder = name.split("/")[0];
 
-        const outPath = tempDir.resolve(name);
+        // strip root folder from path
+        let stripped = name.substring(rootFolder.length + 1);
+
+        if (!stripped) continue; // skip empty root entry
+
+        const outPath = tempDir.resolve(stripped);
 
         if (entry.isDirectory()) {
             Files.createDirectories(outPath);
@@ -70,25 +107,26 @@ function downloadLatestSource(owner, repo) {
                 new FileOutputStream(outPath.toFile())
             );
 
-            // copy stream safely without manual buffer
             let b;
-            while ((b = zis.read()) !== -1) {
+            while ((b = zis.read()) !== -1)
                 out.write(b);
-            }
 
             out.close();
         }
     }
 
-    zis.close()
+    zis.close();
 
-    return tempDir.resolve(rootFolder).toString()
+    // save version
+    Files.writeString(versionPath, latestVersion);
+
+    Chat.log(tempDir.toString())
+
+    return tempDir.toString();
 }
 
-/**
- * Load entry script from downloaded release
- */
-function runFromLatest(owner, repo, entryFile = "index.js") {
+function runFromLatest(owner, repo, entryFile) {
+    if (debug) return require("./"+entryFile)
     const path = downloadLatestSource(owner, repo)
     return require(path + File.separator + entryFile)
 }
