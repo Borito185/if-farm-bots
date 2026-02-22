@@ -1,5 +1,5 @@
 user = {
-    chat_prefix: "/g bozos",
+    chat_prefix: "/g <your nl>",
     do_discord_ping: true,
     discord_handle: "<@450908675457024001>",
     log_level: 0,
@@ -7,7 +7,7 @@ user = {
     option2_key: "key.keyboard.n"
 }
 
-const debug = true
+const debug = false
 
 const File = Java.type("java.io.File");
 const Files = Java.type("java.nio.file.Files");
