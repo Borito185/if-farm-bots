@@ -17,6 +17,7 @@ const ZipInputStream = Java.type("java.util.zip.ZipInputStream");
 const BufferedInputStream = Java.type("java.io.BufferedInputStream");
 const BufferedOutputStream = Java.type("java.io.BufferedOutputStream");
 const FileOutputStream = Java.type("java.io.FileOutputStream");
+const Paths = Java.type("java.nio.file.Paths");
 
 function deleteDir(file) {
     if (file.isDirectory()) {
