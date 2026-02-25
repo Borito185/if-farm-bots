@@ -45,7 +45,7 @@ module.exports = function () {
 
     function do_tree(direction) {
         let target_pos = bot.dir.to_vec(direction).scale(element_offset)
-        target_pos = Player.getPlayer().getPos().add(target_pos)
+        target_pos = bot.move.target.add(target_pos)
         target_pos = bot.math.centralize(target_pos)
         target_pos = target_pos.add(0, 1, 0)
 
