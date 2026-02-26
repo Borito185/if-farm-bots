@@ -1,4 +1,5 @@
 const bot = require("./bot");
+bot.add_farm(-4782, 151, 7789, null, require("./glenda/spruce"))
 bot.add_farm(-4783, 161, 7789, null, require("./glenda/spruce"))
 bot.add_farm(-4921, 123, 7824, null, require("./glenda/sweetberry"))
 bot.add_farm(-4837, 87, 7789, null, require("./glenda/vines"))
