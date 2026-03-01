@@ -6,9 +6,9 @@ bot.add_farm(-4837, 87, 7789, null, require("./glenda/vines"))
 
 bot.add_farm(-8619, 68, 1349, null, require("./snapper/jungle"))
 
-bot.add_farm(-3281, 120, 8037, null, require("./nether/warped"))
-bot.add_farm(-3281, 85, 8037, null, require("./nether/warped"))
-bot.add_farm(-3281, 50, 8037, null, require("./nether/warped"))
+bot.add_farm(-3281, 120, 8037, "Nether Warped L3", require("./nether/warped"))
+bot.add_farm(-3281, 85, 8037, "Nether Warped L2", require("./nether/warped"))
+bot.add_farm(-3281, 50, 8037, "Nether Warped L1", require("./nether/warped"))
 
 bot.add_farm(-2995, 79, 9116, null, require("./florabis/potato"))
 
